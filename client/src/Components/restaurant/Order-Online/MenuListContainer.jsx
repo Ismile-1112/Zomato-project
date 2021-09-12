@@ -15,11 +15,6 @@ const MenuListContainer = (props) => {
         <>
             <div className="w-full flex flex-col gap-3">
                 <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
-                <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
-                <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
-                <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
-                <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
-                <MenuCategory name="Recommended" items={("","")} onClickHandler={onClickHandler} isActive={selected === "Recommended"} />
             </div>
         </>
     );
