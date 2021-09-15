@@ -38,22 +38,6 @@ const OrderOnline = () => {
                                 title: "McSaver American Cheese Supreme - Veg Meal",
                                 image: "https://b.zmtcdn.com/data/dish_photos/153/d1c0258b47ff23a83128e065e2e95153.jpg?fit=around|130:130&crop=130:130;*,*"
                             },
-                        ]} />
-                        <FoodList title="Recommended" items={[
-                            {
-                                price: "246.66", 
-                                rating: 3,
-                                description: "Savings of Rs 50! on a combo Of American Cheese Supreme-Veg Burger + Drink of your choice (M) + Fries (M).",
-                                title: "McSaver American Cheese Supreme - Veg Meal",
-                                image: "https://b.zmtcdn.com/data/dish_photos/153/d1c0258b47ff23a83128e065e2e95153.jpg?fit=around|130:130&crop=130:130;*,*"
-                            },
-                            {
-                                price: "246.66", 
-                                rating: 3,
-                                description: "Savings of Rs 50! on a combo Of American Cheese Supreme-Veg Burger + Drink of your choice (M) + Fries (M).",
-                                title: "McSaver American Cheese Supreme - Veg Meal",
-                                image: "https://b.zmtcdn.com/data/dish_photos/153/d1c0258b47ff23a83128e065e2e95153.jpg?fit=around|130:130&crop=130:130;*,*"
-                            },
                         ]} />     
                     </section>
                 </div>
