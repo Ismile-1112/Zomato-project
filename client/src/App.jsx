@@ -1,8 +1,9 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 // HOC
 import HomeLayoutHOC from "./HOC/Home.Hoc";
 import RestaurantLayoutHOC from "./HOC/Restaurant.HOC";
+import CheckoutLayoutHOC from "./HOC/Checkout.Hoc";
 
 import Temp from "./Components/temp";
 
@@ -11,6 +12,7 @@ import Home from "./Page/Home";
 import Overview from "./Page/Restaurant/Overview";
 import OrderOnline from "./Page/Restaurant/OrderOnline";
 import Reviews from "./Page/Restaurant/Reviews";
+import Checkout from "./Page/Checkout";
 
 function App() {
   return(
@@ -28,6 +30,7 @@ function App() {
       <RestaurantLayoutHOC path="/restaurant/:id/menu" exact component={Temp} />
       <RestaurantLayoutHOC path="/restaurant/:id/reviews" exact component={Reviews} />
       <RestaurantLayoutHOC path="/restaurant/:id/photos" exact component={Temp} />
+      <CheckoutLayoutHOC path="/checkout/orders" exact component={Checkout} />
     </>
   );
 }
