@@ -70,7 +70,9 @@ const Overview = () => {
                         <MenuCollection 
                             menuTitle="Menu" 
                             pages="3"
-                            image="https://b.zmtcdn.com/data/menus/271/110271/454437adeaf71856bbcc224d7d9e1f89.jpg?fit=around%7C200%3A200crop=200%3A200%3B%2A%2C%2A"
+                            image={["https://b.zmtcdn.com/data/menus/271/110271/454437adeaf71856bbcc224d7d9e1f89.jpg?fit=around%7C200%3A200crop=200%3A200%3B%2A%2C%2A",
+                                    "https://b.zmtcdn.com/data/menus/271/110271/454437adeaf71856bbcc224d7d9e1f89.jpg?fit=around%7C200%3A200crop=200%3A200%3B%2A%2C%2A"
+                            ]}
                         />
                     </div>
                     <h4 className="text-lg font-medium my-4">Cuisines</h4>
