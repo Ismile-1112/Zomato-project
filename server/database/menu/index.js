@@ -7,7 +7,7 @@ const MenuSchema = new mongoose.Schema({
           items: [
               {
                 type: mongoose.Types.ObjectId,
-                ref: "foods"
+                ref: "Foods"
               },
           ],
         },
@@ -16,7 +16,7 @@ const MenuSchema = new mongoose.Schema({
     recommended: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "foods",
+            ref: "Foods",
             unique: true
         },
     ],
@@ -26,4 +26,4 @@ const MenuSchema = new mongoose.Schema({
 }
 );
 
-export const MenuModel = mongoose.model("Menu", MenuSchema);
+export const MenuModel = mongoose.model("Menus", MenuSchema);

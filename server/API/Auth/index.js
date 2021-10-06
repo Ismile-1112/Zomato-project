@@ -48,7 +48,7 @@ Method         POST
 
 Router.post("/signin", async (req, res) => {
     try{
-        await ValidateSignin(req.body.credential);
+        await ValidateSignin(req.body.credentials);
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
 
         // generate JWT auth token
