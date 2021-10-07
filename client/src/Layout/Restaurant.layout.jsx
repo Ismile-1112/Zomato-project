@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { TiStarOutline } from "react-icons/ti";
 import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
 import { BiBookmarkPlus } from "react-icons/bi";
@@ -11,19 +13,37 @@ import RestaurantInfo from '../Components/restaurant/RestaurantInfo';
 import TabContainer from '../Components/restaurant/Tabs';
 import CartContainer from '../Components/Cart/CartContainer';
 
+// redux actions
+import { getSpecificRestaurant } from "../Redux/Reducer/restaurant/restaurant.action";
+import { getImage } from "../Redux/Reducer/Image/Image.action";
+
 const RestaurantLayout = (props) => {
+    const [restaurant, setRestaurant] = useState({ images: [], name: "", cuisine: "", address: "" });
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getSpecificRestaurant(id)).then((data) => {
+            setRestaurant((prev) => ({
+                ...prev,
+                ...data.payload.restaurant
+            }));
+
+            dispatch(getImage(data.payload.restaurant?.photos)).then(data => setRestaurant((prev) => ({...prev, ...data.payload.image})));
+        });
+    }, []);
     return (
         <>
             <RestaurantNavbar />
            <div className="container mx-auto px-4 lg:px-40 pb-20">
-               <ImageGrid images={[
-                   "https://b.zmtcdn.com/data/pictures/1/110271/98f61bae7f08ccd13f1522c72700c536.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-                   "https://b.zmtcdn.com/data/pictures/1/110271/98f61bae7f08ccd13f1522c72700c536.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-                   "https://b.zmtcdn.com/data/pictures/1/110271/98f61bae7f08ccd13f1522c72700c536.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-                   "https://b.zmtcdn.com/data/pictures/1/110271/98f61bae7f08ccd13f1522c72700c536.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-                   "https://b.zmtcdn.com/data/pictures/1/110271/98f61bae7f08ccd13f1522c72700c536.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"
-               ]} />
-               <RestaurantInfo name="McDonald's" restaurantRating="4.2" deliveryRating="3.9" cuisine="Burger, Fast Food, Beverages" address="Satellite, Ahmedabad" />
+               <ImageGrid images={restaurant.images} />
+               <RestaurantInfo 
+                    name={restaurant?.name} 
+                    restaurantRating={restaurant?.rating || 0} 
+                    deliveryRating={restaurant?.rating || 0} 
+                    cuisine={restaurant?.cuisine} 
+                    address={restaurant?.address} 
+                />
                <div className="my-4 flex flex-wrap gap-3">
                    <InfoButtons isActive>
                        <TiStarOutline /> Add Review

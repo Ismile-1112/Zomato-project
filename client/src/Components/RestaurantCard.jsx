@@ -30,7 +30,7 @@ const RestaurantCard = (props) => {
                         </div>
                         <span className="bg-white bg-opacity-75 p-1 rounded mr-3">{props.durationOfdelivery} min</span>
                     </div>
-                    <img src={image.images.length && image.images[0].location}
+                    <img src={image?.images.length && image?.images[0].location}
                          alt="food"
                          className="w-full h-full rounded-2xl"
                     />

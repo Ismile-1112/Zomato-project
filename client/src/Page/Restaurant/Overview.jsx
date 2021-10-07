@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { IoMdArrowDropright } from "react-icons/io";
 import Slider from "react-slick";
+import { useSelector, useDispatch } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 
 // components
@@ -11,8 +12,11 @@ import { NextArrow, PrevArrow } from '../../Components/CarousalArrow';
 import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
+import { getImage } from "../../Redux/Reducer/Image/Image.action";
+
 
 const Overview = () => {
+    const [menuImage, setMenuImages] = useState({ images: [] });
     const { id } = useParams();
     const settings = {
         dots: true,
@@ -51,6 +55,19 @@ const Overview = () => {
         ],
     };
 
+    const reduxState = useSelector((globalStore) => globalStore.restaurant.selectedRestaurant.restaurant);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (reduxState) {
+            dispatch(getImage(reduxState?.menuImage)).then((data) => {
+                const images = [];
+                data.payload.image.images.map(({ location }) => images.push(location));
+                setMenuImages(images);
+            });
+        }
+    }, []);
+
     const ratingChanged = (newRating) => {
         console.log(newRating);
     };
@@ -70,9 +87,7 @@ const Overview = () => {
                         <MenuCollection 
                             menuTitle="Menu" 
                             pages="3"
-                            image={["https://b.zmtcdn.com/data/menus/271/110271/454437adeaf71856bbcc224d7d9e1f89.jpg?fit=around%7C200%3A200crop=200%3A200%3B%2A%2C%2A",
-                                    "https://b.zmtcdn.com/data/menus/271/110271/454437adeaf71856bbcc224d7d9e1f89.jpg?fit=around%7C200%3A200crop=200%3A200%3B%2A%2C%2A"
-                            ]}
+                            image={menuImage}
                         />
                     </div>
                     <h4 className="text-lg font-medium my-4">Cuisines</h4>
