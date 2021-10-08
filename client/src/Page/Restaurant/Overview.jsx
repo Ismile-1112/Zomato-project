@@ -72,6 +72,13 @@ const Overview = () => {
         console.log(newRating);
     };
 
+    const getLatLong = (mapAddress) => {
+        return mapAddress?.split(",").map((item) => parseFloat(item));
+    };
+    console.log(
+        reduxState?.mapLocation?.split(",").map((item) => parseFloat(item))
+    );
+
     return (
         <>
             <div className="flex flex-col md:flex-row relative">
@@ -92,9 +99,9 @@ const Overview = () => {
                     </div>
                     <h4 className="text-lg font-medium my-4">Cuisines</h4>
                     <div className="flex flex-wrap gap-2">
-                        <span className="border border-gray-600 text-blue-600 px-2 py-1 rounded-full">Burger</span>
-                        <span className="border border-gray-600 text-blue-600 px-2 py-1 rounded-full">Fast Food</span>
-                        <span className="border border-gray-600 text-blue-600 px-2 py-1 rounded-full">Beverages</span>
+                        {reduxState?.cuisine.map((data) => (
+                            <span className="border border-gray-600 text-blue-600 px-2 py-1 rounded-full">{data}</span>
+                        ))}
                     </div>
                     <h4 className="text-lg font-medium mt-8 mb-2">Popular Dishes</h4>
                     <p>Mc Veggie, Maharaja Mac, Mocha Frappe, Peri Peri Fries, Burgers, Hot Chocolate</p>
@@ -102,7 +109,7 @@ const Overview = () => {
                     <p>Elegantly Decorated, Good Crowd, Low Price, Polite Staff, Worth the Money, Hygiene</p>
                     <div className="my-4">
                        <h4 className="text-lg font-medium">Average Cost</h4>
-                       <h6>₹400 for two people (approx.)</h6>
+                       <h6>₹{reduxState?.averageCost} for two people (approx.)</h6>
                        <small className="text-gray-500">Exclusive of applicable taxes and charges, if any</small>
                     </div>
                     <div className="my-4">
@@ -140,7 +147,12 @@ const Overview = () => {
                         />
                     </div>
                     <div className="my-4 w-full md:hidden flex flex-col gap-4">
-                       <Mapview title="McDonald's" phno="+918928304219" mapLocation={[23.024434851492178, 72.50689971281018]}  address="3, Ground Floor, Wide Angle Cinema, S G Highway, Satellite, Ahmedabad"/>
+                       <Mapview 
+                            title={reduxState?.name} 
+                            phno={`+91${reduxState?.contactNumber}`} 
+                            mapLocation={getLatLong(reduxState?.mapLocation)}  
+                            address={reduxState?.address}
+                        />
                     </div>
                     <div className="my-4 flex flex-col gap-4">
                         <ReviewCard />
@@ -149,7 +161,12 @@ const Overview = () => {
                     </div>
                 </div>
                 <aside style={{ height: "fit-content" }} className="hidden md:flex md:w-4/12 sticky rounded-xl top-2 bg-white p-3 shadow-md flex flex-col gap-4">
-                    <Mapview title="McDonald's" phno="+918928304219" mapLocation={[23.024434851492178, 72.50689971281018]}  address="3, Ground Floor, Wide Angle Cinema, S G Highway, Satellite, Ahmedabad"/>
+                        <Mapview 
+                            title={reduxState?.name} 
+                            phno={`+91${reduxState?.contactNumber}`} 
+                            mapLocation={getLatLong(reduxState?.mapLocation)}  
+                            address={reduxState?.address}
+                        />
                 </aside>
             </div>
         </>
