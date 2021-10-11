@@ -32,6 +32,26 @@ Router.get("/r/:_id", async(req, res) => {
 });
 
 /*
+Route          /:_id
+Description    get food based on id
+Params         _id
+Access         public
+Method         GET
+*/
+
+Router.get("/:_id", async(req, res) => {
+    try{
+        const{ _id } = req.params;
+        const foods = await FoodModel.findById(_id);
+
+        return res.json({ foods });
+    }catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+
+/*
 Route          /c
 Description    get all food based on a perticular restaurant
 Params         category
@@ -53,5 +73,20 @@ Router.get("/r/:category", async(req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
+
+/*
+Route          POST /foods/new
+Description    add new food record to database
+Access         PRIVATE
+*/
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
+    try {
+      const { foodData } = req.body;
+      const newFood = await FoodModel.create(foodData);
+      return res.json({ foods: newFood });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
 
 export default Router;

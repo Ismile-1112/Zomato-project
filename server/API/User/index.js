@@ -19,13 +19,30 @@ Access         public
 Method         GET
 */
 
-Router.get("/:_id", async (req, res) => {
+Router.get("/" ,passport.authenticate("jwt"), async (req, res) => {
     try{
-        await ValidateUserId(req.params);
-        const { _id } = req.params;
-        const getUser = await UserModel.findById(_id);
+        const { email, fullname, phoneNumber, address } = req.session.passport.user._doc;
+        return res.json({ user: { email, fullname, phoneNumber, address } });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
 
-        return res.json({ user: getUser });
+/*
+Route          /:_id
+Description    Get User Data
+Params         _id
+Body           none
+Access         public
+Method         GET
+*/
+
+Router.get("/:_id" , async (req, res) => {
+    try{
+        const user = await UserModel.findById(req.params._id);
+        const { fullname } = user;
+        
+        return res.json({ user: { fullname } });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

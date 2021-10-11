@@ -43,7 +43,7 @@ Router.get("/:_id", async (req, res) => {
     try{
         await ValidateRestaurantId(req.params);
         const { _id } = req.params;
-        const restaurant = await RestaurantModel.findOne(_id);
+        const restaurant = await RestaurantModel.findById(_id);
         if(!restaurant)
           return res.status(404).json({ error: "Restaurant Not Found" });
         return res.json({ restaurant });
@@ -77,5 +77,19 @@ Router.get("/search", async (req, res) => {
         return res.status(500).json({ error: error.message });
     } 
 });
+
+/*
+Route           POST /restaurants/new
+Description     add new restaurant
+/access         PRIVATE
+*/
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
+    try {
+      const newRestaurant = await RestaurantModel.create(req.body.restaurantData);
+      return res.json({ restaurants: newRestaurant });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
 
 export default Router;

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineCompass } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 
@@ -8,7 +9,18 @@ import FloatMenuBtn from '../../Components/restaurant/Order-Online/FloatMenuBtn'
 import FoodList from '../../Components/restaurant/Order-Online/FoodList';
 import MenuListContainer from "../../Components/restaurant/Order-Online/MenuListContainer";
 
+// redux actions
+import { getFoodList } from "../../Redux/Reducer/Food/Food.action";
+
 const OrderOnline = () => {
+    const [menu, setMenu] = useState([]);
+
+    const reduxState = useSelector((globalStore) => globalStore.restaurant.selectedRestaurant.restaurant);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        reduxState && 
+          dispatch(getFoodList(reduxState.menu)).then((data) => setMenu(data.payload.menus.menus));
+    }, [reduxState]);
     return (
         <>
             <div className="w-full h-screen flex">
@@ -23,22 +35,9 @@ const OrderOnline = () => {
                         <h4 className="flex items-center gap-2 font-light text-gray-500"><AiOutlineCompass />Live track your order | <BiTimeFive />46 min</h4>
                     </div>
                     <section className="flex h-screen overflow-y-scroll flex-col gap-3 md:gap-5">
-                        <FoodList title="Recommended" items={[
-                            {
-                                price: "246.66", 
-                                rating: 3,
-                                description: "Savings of Rs 50! on a combo Of American Cheese Supreme-Veg Burger + Drink of your choice (M) + Fries (M).",
-                                title: "McSaver American Cheese Supreme - Veg Meal",
-                                image: "https://b.zmtcdn.com/data/dish_photos/153/d1c0258b47ff23a83128e065e2e95153.jpg?fit=around|130:130&crop=130:130;*,*"
-                            },
-                            {
-                                price: "246.66", 
-                                rating: 3,
-                                description: "Savings of Rs 50! on a combo Of American Cheese Supreme-Veg Burger + Drink of your choice (M) + Fries (M).",
-                                title: "McSaver American Cheese Supreme - Veg Meal",
-                                image: "https://b.zmtcdn.com/data/dish_photos/153/d1c0258b47ff23a83128e065e2e95153.jpg?fit=around|130:130&crop=130:130;*,*"
-                            },
-                        ]} />     
+                        {menu.map((item) => (
+                            <FoodList key={item._id} {...item} />
+                        ))}   
                     </section>
                 </div>
             </div>

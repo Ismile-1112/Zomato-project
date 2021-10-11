@@ -11,6 +11,25 @@ import { ValidateNewReview, ValidateReviewId } from "../../validation/review";
 const Router = express.Router();
 
 /*
+Route          /
+Description    Get all reviews
+Params         resid
+Body           none
+Access         public
+Method         GET
+*/
+
+Router.get("/resid", async (req, res) => {
+    try{
+        const reviews = await ReviewModel.find({ restaurant: req.params.resid})
+
+        return res.json({ reviews });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+/*
 Route          /new
 Description    Add new food review/rating
 Params         none

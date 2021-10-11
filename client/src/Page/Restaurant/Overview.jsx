@@ -13,10 +13,11 @@ import ReviewCard from '../../Components/restaurant/Reviews/reviewCard';
 import Mapview from '../../Components/restaurant/Mapview';
 
 import { getImage } from "../../Redux/Reducer/Image/Image.action";
-
+import { getReviews } from '../../Redux/Reducer/Reviews/review.action';
 
 const Overview = () => {
     const [menuImage, setMenuImages] = useState({ images: [] });
+    const [Reviews, setReviews] = useState([]);
     const { id } = useParams();
     const settings = {
         dots: true,
@@ -65,6 +66,7 @@ const Overview = () => {
                 data.payload.image.images.map(({ location }) => images.push(location));
                 setMenuImages(images);
             });
+            dispatch(getReviews(reduxState?._id)).then((data) => setReviews(data.payload.reviews));
         }
     }, []);
 
@@ -145,6 +147,9 @@ const Overview = () => {
                             size={24}
                             activeColor="#ffd700"
                         />
+                        {Reviews.map((reviewData) => (
+                            <ReviewCard {...reviewData} />
+                        ))}
                     </div>
                     <div className="my-4 w-full md:hidden flex flex-col gap-4">
                        <Mapview 
