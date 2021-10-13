@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 
 // component
-import ReviewModal from './ReviewModal';
+import ReviewModal from './ReviewModel';
 
 const AddReviewCard = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const openModal = () => setIsOpen(true);
+    const openModal = () => {
+        if (!localStorage.zomatoUser) {
+            return alert("Please sign in to post a review");
+        }
+        setIsOpen(true);
+    };
     
     return (
         <>
