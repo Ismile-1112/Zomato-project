@@ -28,7 +28,9 @@ export default function SignUp({ isOpen, setIsOpen }) {
       fullname: ""
     });
     dispatch(signUp(userData));
-  }
+  };
+
+  const googlesignup = () => (window.location.href = "http://localhost:4000/auth/google");
 
   return (
     <>
@@ -74,7 +76,7 @@ export default function SignUp({ isOpen, setIsOpen }) {
                 >
                 </Dialog.Title>
                 <div className="mt-2 flex flex-col gap-3 w-full">
-                  <button className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border-gray-400 bg-white text-gray-700 hover:bg-gray-100">
+                  <button onclick={googlesignup} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border-gray-400 bg-white text-gray-700 hover:bg-gray-100">
                       Sign up with google <FcGoogle />
                   </button>
 
