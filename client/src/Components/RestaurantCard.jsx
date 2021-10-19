@@ -24,7 +24,7 @@ const RestaurantCard = (props) => {
                                 <span className="bg-zomato-400 text-white px-2 py-1 rounded text-sm">Pro extra 25% OFF</span>
                             )}
                             {props.isOff && (
-                                <span className="bg-blue-600 text-white px-2 py-1 rounded text-sm">₹{`${props.isOff}`} OFF</span>
+                                <span className="bg-blue-600 text-white px-2 py-1 rounded text-sm">₹{`${props.isOff}`} %OFF</span>
                             )}
                             
                         </div>

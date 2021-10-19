@@ -18,7 +18,7 @@ const ImageGrid = (props) => {
                     />
                 </div>
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
-                    <img src={props.images.length >= 1 && props.images[1].location}
+                    <img src={props.photos?.length >= 1 && props.images[1].location}
                         alt="restaurant image"
                         className="w-full h-2/4 object-cover rounded-lg transform transition duration-700 hover:scale-110"
                     />
