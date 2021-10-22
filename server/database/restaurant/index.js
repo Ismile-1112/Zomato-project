@@ -16,6 +16,9 @@ const RestaurantSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Images",
     },
+    durationOfdelivery: Number,
+    restaurantReviewValue: Number,
+    isOff: Number,
     menu: {
         type: mongoose.Types.ObjectId,
         ref: "Menus"

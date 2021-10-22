@@ -38,12 +38,14 @@ Access         public
 Method         POST
 */
 
-Router.post("/new", async (req, res) => {
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
     try{
         await ValidateNewReview(req.body);
 
+        const { _id } = req.session.passport.user._doc;
+
         const { reviewData } = req.body;
-        await ReviewModel.create(reviewData);
+        await ReviewModel.create({...reviewData, user: _id});
 
         return res.json({ review: "Successfully Created Review." });
     } catch (error) {
