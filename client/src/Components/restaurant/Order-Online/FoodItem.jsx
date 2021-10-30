@@ -21,7 +21,7 @@ const FoodItem = (props) => {
     }, []);
 
     const addFoodToCart = () => {
-        dispatch(addToCart({...food, quantity: 1, totalPrice: food.price}));
+        dispatch(addCart({...food, quantity: 1, totalPrice: food.price}));
         setFood((prev) => ({ ...prev, isAddToCart: true }));
     };
 
